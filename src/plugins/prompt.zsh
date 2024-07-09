@@ -89,8 +89,9 @@ function _zee_prompt_render() {
 
     print -Rn "${sep_left}${username}${sep_at}${hostname} "
     _zee_prompt_render_dir
+    print -Rn "${sep_right}"
     _zee_prompt_render_parts
-    print -Rn "${sep_right}${priv} "
+    print -Rn "${priv} "
     print -Rn "${zfg[no]}${zbg[no]}"
 }
 
@@ -109,9 +110,9 @@ function _zee_prompt_render_dir() {
 }
 
 function _zee_prompt_render_parts() {
-    if [[ -n $ZEE_PROMPT_PARTS ]]; then
-        print -Rn "${zfg[no]} "
-    fi
+    # if [[ -n $ZEE_PROMPT_PARTS ]]; then
+    #     print -Rn "${zfg[no]}"
+    # fi
 
     for part in $ZEE_PROMPT_PARTS; do
         print -Rn "${zfg[no]}${zbg[no]}"

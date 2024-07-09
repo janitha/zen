@@ -2,7 +2,7 @@ export ZDOTDIR = $(CURDIR)/test
 export ZEE_ROOT_DIR = $(CURDIR)/src
 
 
-export ZEE_DEV="-x"
+#export ZEE_DEV="-x"
 
 .PHONY: subshell
 subshell:
