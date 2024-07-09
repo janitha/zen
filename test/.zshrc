@@ -4,8 +4,9 @@ source $ZEE_ROOT_DIR/zee.zsh
 zee init
 
 zee load prompt
-zee load git
 zee load subshell
+zee load git
+zee load virtualenv
 
 
 
