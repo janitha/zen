@@ -7,11 +7,14 @@ zee load prompt
 zee load subshell
 zee load git
 zee load virtualenv
+zee load ssh
+
 
 
 
 function zeedev() {
-    print -Rn "${zfg[red]}(zeedev)"
+    print -Rn "${zfg[red]}(zee)"
 }
-zee-prompt-part-add zeedev
-
+if [[ -n "$ZEE_DEV" ]]; then
+    zee-prompt-part-add zeedev
+fi
