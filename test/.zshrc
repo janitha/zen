@@ -1,20 +1,21 @@
 bindkey -e
 
-source $ZEE_ROOT_DIR/zee.zsh
-zee init
+source $ZDOTDIR/../src/zen.zsh
 
-zee load prompt
-zee load zenv
-zee load git
-zee load virtualenv
-zee load ssh
+zen init
+
+#zen load dummy
+
+zen load prompt
+zen load zenv
+zen load git
+zen load virtualenv
+zen load ssh
 
 
-
-
-function zeedev() {
-    print -Rn "${zfg[red]}(zee)"
+function zendev() {
+    print -Rn "${zfg[red]}(zen)"
 }
-if [[ -n "$ZEE_DEV" ]]; then
-    zee-prompt-part-add zeedev
-fi
+#if [[ -n "$ZEN_DEV" ]]; then
+    zen-prompt-part-add zendev
+#fi
