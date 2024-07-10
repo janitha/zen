@@ -1,7 +1,7 @@
 export ZDOTDIR = $(CURDIR)/test
 export XDG_CONFIG_HOME = $(ZDOTDIR)/.config
 
-#export ZEN_DEV="-x"
+export ZEN_DEV="-x"
 
 .PHONY: subshell
 subshell:
@@ -10,5 +10,5 @@ subshell:
 	ZDOTDIR=$(ZDOTDIR) \
 	ZEN_DEV=${ZEN_DEV} \
 	TERM=$(TERM) \
-	PS4="%F{yellow}%B+%2N:%i>%b%f" \
+	PS4="%(?..%1FErrAbove)%F{yellow}%B+%2N:%i>%b%f" \
 	zsh -i ${ZEN_DEV}

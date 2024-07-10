@@ -3,9 +3,8 @@ function _zen_prompt_git__branch() {
 }
 
 function _zen_prompt_git__dirty() {
-    if ! git diff --no-ext-diff --quiet --exit-code; then
-        print -Rn "±"
-    fi
+    git diff --no-ext-diff --quiet --exit-code && return
+    print -Rn "±"
 }
 
 function _zen_prompt_git__part() {

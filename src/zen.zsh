@@ -18,6 +18,8 @@ function _zen_cmd_init() {
         mkdir -p $ZEN_PLUGIN_DIR
     fi
 
+    source $ZEN_ROOT_DIR/utils.zsh
+
 }
 
 function _zen_cmd_load() {

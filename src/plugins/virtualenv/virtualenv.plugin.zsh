@@ -1,5 +1,5 @@
 function _zen_prompt_virtualenv__part() {
-    [[ -n $VIRTUAL_ENV ]] || return
+    [[ -z $VIRTUAL_ENV ]] && return
     print -Rn "${zfg[green]}(venv)${zfg[no]}"
 }
 

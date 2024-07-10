@@ -12,45 +12,6 @@ function _zen_prompt_init() {
 
     autoload -Uz add-zsh-hook
     add-zsh-hook precmd _zen_prompt_precmd
-
-    _zen_prompt_color_init
-}
-
-function _zen_prompt_color_init() {
-
-    # https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
-    # https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#Character-Highlighting
-    # https://github.com/zsh-users/zsh/blob/master/Functions/Misc/colors
-
-    typeset -A _zcolors
-    _zcolors=(
-        0 black
-        1 red
-        2 green
-        3 yellow
-        4 blue
-        5 purple
-        6 cyan
-        7 gray
-        8 darkgray
-        9 lightred
-        10 lightgreen
-        11 lightyellow
-        12 lightblue
-        13 lightpurple
-        14 lightcyan
-        15 white
-    )
-
-    typeset -Ag zfg zbg
-
-    for i in {0..15}; do
-        zfg[${_zcolors[$i]}]="%${i}F"
-        zbg[${_zcolors[$i]}]="%${i}K"
-    done
-
-    zfg[no]="%f%b%u%s"
-    zbg[no]="%k"
 }
 
 function _zen_prompt_precmd() {
@@ -98,10 +59,6 @@ function _zen_prompt_render_dir() {
 }
 
 function _zen_prompt_render_parts() {
-    # if [[ -n $ZEN_PROMPT_PARTS ]]; then
-    #     print -Rn "${zfg[no]}"
-    # fi
-
     for part in $ZEN_PROMPT_PARTS; do
         print -Rn "${zfg[no]}${zbg[no]}"
         $part
