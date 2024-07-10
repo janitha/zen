@@ -24,7 +24,7 @@ function _zenv_init() {
 }
 
 function _zenv_entered() {
-    print -P  "${zfg[cyan]}>>> Entered a state of Zenv: $ZENV >>>${zfg[no]}" >&2
+    print -P "${zfg[cyan]}>>> Entered a state of Zenv: $ZENV >>>${zfg[no]}" >&2
 
     cd $ZENV
     source ${ZENV_FILE}
@@ -41,7 +41,7 @@ function _zenv_enter() {
 
     local shortcut=$1
     local target
-    if [[ -r $ZENV_SHORTCUTS_DIR/$shortcut ]]; then
+    if [[ $shortcut != '.' && -r $ZENV_SHORTCUTS_DIR/$shortcut ]]; then
         target=$(head -n 1 $ZENV_SHORTCUTS_DIR/$shortcut)
     else
         target=${1:A} # Do path expansion
@@ -50,7 +50,8 @@ function _zenv_enter() {
     if ! _zenv_check $target; then
         return 1
     fi
-    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=$ZDOTDIR zsh -i
+
+    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=${ZDOTDIR:-$HOME} zsh -i
 
     print -P "${zfg[cyan]}<<< Exited a state of Zenv: $target <<<${zfg[no]}" >&2
 }
@@ -104,3 +105,5 @@ function _zenv_set_shortcut() {
 _zenv_init
 
 alias zenv=_zenv_enter
+
+# TODO: Add a function to list shortcuts using `compctl`

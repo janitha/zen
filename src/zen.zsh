@@ -4,6 +4,10 @@
 # zen plugin load prompt
 # zen
 
+# PS4="%(?..%1FErrAbove)%F{yellow}%B+%2N:%i>%b%f"
+# set -x
+
+
 if [[ -z $ZSH_VERSION ]]; then
     echo "$0: zsh is required for zen" >&2
     return
