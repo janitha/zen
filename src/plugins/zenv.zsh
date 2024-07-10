@@ -24,7 +24,7 @@ function _zenv_init() {
 }
 
 function _zenv_entered() {
-    echo ">>> Entering a state of Zenv: $ZENV >>>" >&2
+    print -P  "${zfg[cyan]}>>> Entered a state of Zenv: $ZENV >>>${zfg[no]}" >&2
 
     cd $ZENV
     source ${ZENV_FILE}
@@ -52,7 +52,7 @@ function _zenv_enter() {
     fi
     env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=$ZDOTDIR zsh -i
 
-    echo "<<< Exiting a state of Zenv: $target <<<" >&2
+    print -P "${zfg[cyan]}<<< Exited a state of Zenv: $target <<<${zfg[no]}" >&2
 }
 
 function _zenv_check() {

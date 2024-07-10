@@ -33,7 +33,8 @@ function _zen_cmd_load() {
     fi
 
     local plugin_name=$1
-    local plugin_file=${ZEN_PLUGIN_DIR}/${plugin_name}/${plugin_name}.plugin.zsh
+    #local plugin_file=${ZEN_PLUGIN_DIR}/${plugin_name}/${plugin_name}.plugin.zsh
+    local plugin_file=${ZEN_PLUGIN_DIR}/${plugin_name}.zsh
 
     if [[ ! -r $plugin_file ]]; then
         echo "$0: Plugin not found: $plugin_name" >&2
