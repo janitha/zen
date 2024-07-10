@@ -4,7 +4,7 @@ function _zen_prompt_virtualenv__part() {
 }
 
 function _zen_prompt_virtualenv__init() {
-    zen-prompt-part-add _zen_prompt_virtualenv__part
+    zen-prompt add-part _zen_prompt_virtualenv__part
     export VIRTUAL_ENV_DISABLE_PROMPT=1
 }
 

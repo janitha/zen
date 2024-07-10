@@ -17,11 +17,10 @@ function _zen_cmd_init() {
     if [[ ! -d $ZEN_PLUGIN_DIR ]]; then
         mkdir -p $ZEN_PLUGIN_DIR
     fi
+
 }
 
 function _zen_cmd_load() {
-
-    # https://github.com/agkozak/Zsh-100-Commits-Club/blob/master/Zsh-Plugin-Standard.adoc
 
     # TODO: Support loading plugin by path
     # TODO: Support loading plugin by URL (git clone)
@@ -45,6 +44,11 @@ function _zen_cmd_load() {
 function zen() {
 
     # TODO: Use zparseopts
+
+    if [[ $# -eq 0 ]]; then
+        echo "$0: Subcommand required" >&2
+        return 1
+    fi
 
     local command=$1
     shift

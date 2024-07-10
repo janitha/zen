@@ -5,21 +5,21 @@
 
 echo "$0: Sourcing Begin" >&2
 
-function _dummy_chpwd() {
+function _dummy__chpwd() {
     echo "$0: chpwd" >&2
 }
 
-function _dummy_precmd() {
+function _dummy__precmd() {
     echo "$0: precmd" >&2
 }
 
-function _dummy_preexec() {
+function _dummy__preexec() {
     echo "$0: preexec" >&2
 }
 
 autoload -Uz add-zsh-hook
-add-zsh-hook chpwd _dummy_chpwd
-add-zsh-hook precmd _dummy_precmd
-add-zsh-hook preexec _dummy_preexec
+add-zsh-hook chpwd _dummy__chpwd
+add-zsh-hook precmd _dummy__precmd
+add-zsh-hook preexec _dummy__preexec
 
 echo "$0: Sourcing Done" >&2

@@ -21,13 +21,11 @@ function _zenv_entered() {
 
     ZENV_NAME=${ZENV_NAME:-${PWD:t}}
 
-    #zen-prompt-dirsub-add $PWD "(${ZENV_NAME})"
-
-    zen-prompt-dirsub-add _zenv_get_prompt_dirsub
-    zen-prompt-part-add _zenv_get_prompt_part
+    zen-prompt add-dirsub _zenv_get_prompt_dirsub
+    zen-prompt add-part _zenv_get_prompt_part
 }
 
-function _zenv_dir_check() {
+function _zenv_check() {
     local target=$1
 
     if [[ -z $target ]]; then
@@ -48,10 +46,10 @@ function _zenv_dir_check() {
 
 function _zenv_enter() {
     local target=${1:A} # Do path expansion
-    if ! _zenv_dir_check $target; then
+    if ! _zenv_check $target; then
         return 1
     fi
-    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH+1)) ZDOTDIR=$ZDOTDIR zsh -i
+    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=$ZDOTDIR zsh -i
 
     echo "<<< Zenv exited $target <<<" >&2
 }
@@ -82,5 +80,3 @@ function _zenv_get_prompt_dirsub() {
 _zenv_init
 
 alias zenv=_zenv_enter
-
-# TODO: chpwd when current path is outside target, warn and/or put something on prompt

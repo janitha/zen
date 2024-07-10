@@ -4,7 +4,7 @@ function _zen_prompt_ssh__part() {
 }
 
 function _zen_prompt_ssh__init() {
-    zen-prompt-part-add _zen_prompt_ssh__part
+    zen-prompt add-part _zen_prompt_ssh__part
 }
 
 _zen_prompt_ssh__init

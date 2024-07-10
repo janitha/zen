@@ -22,7 +22,7 @@ function _zen_prompt_git__part() {
 }
 
 function _zen_prompt_git__init() {
-    zen-prompt-part-add _zen_prompt_git__part
+    zen-prompt add-part _zen_prompt_git__part
 }
 
 _zen_prompt_git__init
