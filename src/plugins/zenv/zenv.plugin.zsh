@@ -1,11 +1,21 @@
+# zenv
+#
+# .zenv
+#   ZENV_NAME=
+
 function _zenv_init() {
 
     ZENV_CONFIG_DIR=${ZENV_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/zenv}
+    ZENV_SHORTCUTS_DIR=${ZENV_SHORTCUTS_DIR:-$ZENV_CONFIG_DIR/shortcuts}
     ZENV_FILE=${ZENV_FILE:-.zenv}
     ZENV_DEPTH=${ZENV_DEPTH:=0}
 
     if [[ ! -d $ZENV_CONFIG_DIR ]]; then
         mkdir -p $ZENV_CONFIG_DIR
+    fi
+
+    if [[ ! -d $ZENV_SHORTCUTS_DIR ]]; then
+        mkdir -p $ZENV_SHORTCUTS_DIR
     fi
 
     if [[ -n $ZENV ]]; then
@@ -14,15 +24,35 @@ function _zenv_init() {
 }
 
 function _zenv_entered() {
-    echo ">>> Zenv entered $ZENV >>>" >&2
+    echo ">>> Entering a state of Zenv: $ZENV >>>" >&2
 
     cd $ZENV
     source ${ZENV_FILE}
 
     ZENV_NAME=${ZENV_NAME:-${PWD:t}}
 
+    _zenv_set_shortcut
+
     zen-prompt add-dirsub _zenv_get_prompt_dirsub
     zen-prompt add-part _zenv_get_prompt_part
+}
+
+function _zenv_enter() {
+
+    local shortcut=$1
+    local target
+    if [[ -r $ZENV_SHORTCUTS_DIR/$shortcut ]]; then
+        target=$(head -n 1 $ZENV_SHORTCUTS_DIR/$shortcut)
+    else
+        target=${1:A} # Do path expansion
+    fi
+
+    if ! _zenv_check $target; then
+        return 1
+    fi
+    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=$ZDOTDIR zsh -i
+
+    echo "<<< Exiting a state of Zenv: $target <<<" >&2
 }
 
 function _zenv_check() {
@@ -42,16 +72,6 @@ function _zenv_check() {
         echo "Not a zenv directory: $target" >&2
         return 1
     fi
-}
-
-function _zenv_enter() {
-    local target=${1:A} # Do path expansion
-    if ! _zenv_check $target; then
-        return 1
-    fi
-    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=$ZDOTDIR zsh -i
-
-    echo "<<< Zenv exited $target <<<" >&2
 }
 
 function _zenv_get_prompt_part() {
@@ -75,6 +95,10 @@ function _zenv_get_prompt_dirsub() {
     newpwd=${newpwd/$from/$to}
 
     print -Rn $newpwd
+}
+
+function _zenv_set_shortcut() {
+    echo $ZENV >$ZENV_SHORTCUTS_DIR/$ZENV_NAME
 }
 
 _zenv_init

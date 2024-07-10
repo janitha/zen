@@ -1,7 +1,7 @@
 export ZDOTDIR = $(CURDIR)/test
 export XDG_CONFIG_HOME = $(ZDOTDIR)/.config
 
-export ZEN_DEV="-x"
+# export ZEN_DEV="-x"
 
 .PHONY: subshell
 subshell:
