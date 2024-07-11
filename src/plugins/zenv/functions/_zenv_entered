@@ -36,18 +36,16 @@ function _zenv_cache_shortcut() {
     echo $ZENV >$ZENV_CACHE_DIR/shortcuts/$ZENV_NAME
 }
 
-function _zenv_entered() {
-    print -P "%F{6}>>> Entered a state of Zenv: $ZENV >>>%f" >&2
+print -P "%F{6}>>> Entered a state of Zenv: $ZENV >>>%f" >&2
 
-    cd $ZENV
-    source ${ZENV_FILE}
+cd $ZENV
+source ${ZENV_FILE}
 
-    ZENV_NAME=${ZENV_NAME:-${PWD:t}}
+ZENV_NAME=${ZENV_NAME:-${PWD:t}}
 
-    _zenv_cache_shortcut
+_zenv_cache_shortcut
 
-    if [[ -n $ZEN_PROMPT ]]; then
-        zen-prompt add-dirsub _zenv_zen_prompt_dirsub
-        zen-prompt add-part _zenv_zen_prompt_info
-    fi
-}
+if [[ -n $ZEN_PROMPT ]]; then
+    zen-prompt add-dirsub _zenv_zen_prompt_dirsub
+    zen-prompt add-part _zenv_zen_prompt_info
+fi
