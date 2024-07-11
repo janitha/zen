@@ -42,22 +42,20 @@ function _zen_cmd_load() {
     fi
 
     local plugin_name=$1
-    local plugin_file
 
     # Try to load plugin as single file
-    plugin_file=${ZEN_PLUGIN_DIR}/${plugin_name}/${plugin_name}.plugin.zsh
-    if [[ -r try_file ]]; then
-        source $plugin_file
-        return
-    fi
-
-    # Try to load plugin as a dir in the $ZEN_PLUGIN_DIR
-    plugin_file=${ZEN_PLUGIN_DIR}/${plugin_name}.zsh
+    local plugin_file=${ZEN_PLUGIN_DIR}/${plugin_name}.zsh
     if [[ -r $plugin_file ]]; then
         source $plugin_file
         return
     fi
 
+    # Try to load plugin from a dir
+    local plugin_file=${ZEN_PLUGIN_DIR}/${plugin_name}/${plugin_name}.plugin.zsh
+    if [[ -r $plugin_file ]]; then
+        source $plugin_file
+        return
+    fi
 }
 
 function zen() {

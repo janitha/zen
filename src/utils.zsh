@@ -29,8 +29,8 @@ _zcolors=(
 
 typeset -Ag zfg zbg
 for i in {0..15}; do
-    zfg[${_zcolors[$i]}]="%${i}F"
-    zbg[${_zcolors[$i]}]="%${i}K"
+    zfg[${_zcolors[$i]}]="%F{$i}"
+    zbg[${_zcolors[$i]}]="%K{$i}"
 done
 zfg[no]="%f%b%u%s"
 zbg[no]="%k"
