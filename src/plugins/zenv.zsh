@@ -37,25 +37,6 @@ function _zenv_entered() {
     zen-prompt add-part _zenv_get_prompt_part
 }
 
-function _zenv_enter() {
-
-    local shortcut=$1
-    local target
-    if [[ $shortcut != '.' && -r $ZENV_SHORTCUTS_DIR/$shortcut ]]; then
-        target=$(head -n 1 $ZENV_SHORTCUTS_DIR/$shortcut)
-    else
-        target=${1:A} # Do path expansion
-    fi
-
-    if ! _zenv_check $target; then
-        return 1
-    fi
-
-    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=${ZDOTDIR:-$HOME} zsh -i
-
-    print -P "${zfg[cyan]}<<< Exited a state of Zenv: $target <<<${zfg[no]}" >&2
-}
-
 function _zenv_check() {
     local target=$1
 
@@ -69,7 +50,7 @@ function _zenv_check() {
         return 1
     fi
 
-    if [[ ! -f $target/.zenv ]]; then
+    if [[ ! -r $target/.zenv ]]; then
         echo "Not a zenv directory: $target" >&2
         return 1
     fi
@@ -102,8 +83,32 @@ function _zenv_set_shortcut() {
     echo $ZENV >$ZENV_SHORTCUTS_DIR/$ZENV_NAME
 }
 
-_zenv_init
+function _zenv_enter() {
+
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: $0 <target>" >&2
+        return 1
+    fi
+
+    local shortcut=$1
+    local target
+    if [[ $shortcut != '.' && -r $ZENV_SHORTCUTS_DIR/$shortcut ]]; then
+        target=$(head -n 1 $ZENV_SHORTCUTS_DIR/$shortcut)
+    else
+        target=${1:A} # Do path expansion
+    fi
+
+    if ! _zenv_check $target; then
+        return 1
+    fi
+
+    env ZENV=$target ZENV_DEPTH=$((ZENV_DEPTH + 1)) ZDOTDIR=${ZDOTDIR:-$HOME} zsh -i
+
+    print -P "${zfg[cyan]}<<< Exited a state of Zenv: $target <<<${zfg[no]}" >&2
+}
 
 alias zenv=_zenv_enter
+
+_zenv_init
 
 # TODO: Add a function to list shortcuts using `compctl`
