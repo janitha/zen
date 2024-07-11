@@ -1,6 +1,6 @@
 bindkey -e
 
-source $ZDOTDIR/../src/zen.zsh
+source $ZDOTDIR/../zen.zsh
 
 zen init
 
