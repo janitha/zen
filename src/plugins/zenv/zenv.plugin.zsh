@@ -20,5 +20,3 @@ if [[ -n $ZENV ]]; then
 fi
 
 # TODO: Add a function to list shortcuts using `compctl`
-
-

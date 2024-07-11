@@ -16,6 +16,7 @@ function _zen_prompt_init() {
 
 function _zen_prompt_precmd() {
     PROMPT="$(_zen_prompt_render)"
+    RPROMPT=""
 }
 
 function _zen_prompt_render() {
