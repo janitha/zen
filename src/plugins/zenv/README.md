@@ -4,7 +4,7 @@
 
 Isolation is achieved by creating a new subshell when entering a zenv-aware directory or workspace, preserving the original environment. This approach differentiates `zenv` from tools like `dotenv` and `autoenv`
 
-# Prerequisites
+## Prerequisites
 
 - Zsh
 
