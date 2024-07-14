@@ -34,10 +34,6 @@ function _zen_prompt_render_dir() {
     local newcolor=${zfg[yellow]}
     local defcolor=${zfg[lightblue]}
 
-    # for from to in ${(@kv)ZEN_PROMPT_DIRSUBS}; do
-    #     newpwd=${newpwd/$from/"${newcolor}${to}${defcolor}"}
-    # done
-
     for dirsub in ${ZEN_PROMPT_DIRSUBS}; do
         newpwd=$($dirsub $newpwd)
     done
