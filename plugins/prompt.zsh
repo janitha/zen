@@ -2,18 +2,6 @@
 
 # https://zsh.sourceforge.io/Doc/Release/Prompt-Expansion.html
 
-function _zen_prompt_init() {
-
-    typeset -g ZEN_PROMPT=1
-    typeset -ag ZEN_PROMPT_PARTS
-    typeset -ag ZEN_PROMPT_DIRSUBS
-
-    setopt prompt_subst
-
-    autoload -Uz add-zsh-hook
-    add-zsh-hook precmd _zen_prompt_precmd
-}
-
 function _zen_prompt_precmd() {
     PROMPT="$(_zen_prompt_render)"
     RPROMPT=""
@@ -82,8 +70,6 @@ function _zen_prompt_add_dirsub() {
     ZEN_PROMPT_DIRSUBS+=($1)
 }
 
-_zen_prompt_init
-
 function zen-prompt() {
 
     # TODO: Use zparseopts
@@ -109,6 +95,15 @@ function zen-prompt() {
     esac
 
 }
+
+typeset -g ZEN_PROMPT=1
+typeset -ag ZEN_PROMPT_PARTS
+typeset -ag ZEN_PROMPT_DIRSUBS
+
+setopt prompt_subst
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _zen_prompt_precmd
 
 # TODO: Implement "zen-prompt add --before <other> func"
 # zen-prompt add-part <part>
