@@ -1,0 +1,3 @@
+[submodule "plugins/zenv"]
+	path = plugins/zenv
+	url = git@code.home:janitha/zenv.git
