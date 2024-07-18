@@ -11,6 +11,9 @@ function _zen_cmd_init() {
         mkdir -p $ZEN_PLUGIN_DIR
     fi
 
+    autoload -Uz compinit
+    compinit
+
     autoload -Uz zen-utils
     zen-utils
 
