@@ -4,7 +4,7 @@ function _zen_prompt_git__branch() {
 
 function _zen_prompt_git__dirty() {
     git diff --no-ext-diff --quiet --exit-code && return
-    print -Rn "±"
+    print -Rn "${zfg[lightcyan]}±"
 }
 
 function _zen_prompt_git__part() {
@@ -13,11 +13,16 @@ function _zen_prompt_git__part() {
     [[ -z $branch ]] && return
 
     local dirty=$(_zen_prompt_git__dirty)
+
     local color="${zfg[cyan]}"
-    local end="${zfg[no]}"
+    local str=""
+    str+="${color}("
+    str+="${color}${branch}"
+    str+="${color}${dirty}"
+    str+="${color})"
+    str+="${zfg[no]}"
 
-    print -Rn "${color}(${branch}${dirty})${end}"
-
+    print -Rn "${str}"
 }
 
 zen-prompt add-part _zen_prompt_git__part
