@@ -100,11 +100,3 @@ setopt prompt_subst
 
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _zen_prompt_precmd
-
-# TODO: Implement "zen-prompt add --before <other> func"
-# zen-prompt add-part <part>
-# zen-prompt add-part --before <other> --before <asdf> <part>
-# zen-prompt add-part --after <other> <part>
-# zen-prompt add-part --beginning <part>
-# zen-prompt add-part --end <part>
-# zen-prompt remove <part>
