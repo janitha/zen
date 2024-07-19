@@ -40,7 +40,7 @@ function _zen_prompt_render_dir() {
 
     newpwd=${newpwd/$HOME/"${newcolor}~${defcolor}"}
 
-    print -Rn "${zfg[lightblue]}${newpwd}"
+    print -Rn "${defcolor}${newpwd}"
 }
 
 function _zen_prompt_render_parts() {
