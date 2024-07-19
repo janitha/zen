@@ -8,6 +8,7 @@ function _zen_prompt_git__dirty() {
 }
 
 function _zen_prompt_git__part() {
+    [[ -v $ZEN_PROMPT_GIT_SKIP ]] && return
 
     local branch=$(_zen_prompt_git__branch)
     [[ -z $branch ]] && return
@@ -25,4 +26,14 @@ function _zen_prompt_git__part() {
     print -Rn "${str}"
 }
 
+function _zen_prompt_git__chpwd() {
+    if [[ -z $(_zen_prompt_git__branch) ]]; then
+        ZEN_PROMPT_GIT_SKIP=1
+        return
+    fi
+    unset ZEN_PROMPT_GIT_SKIP
+}
+
 zen-prompt add-part _zen_prompt_git__part
+
+add-zsh-hook chpwd _zen_prompt_git__chpwd
