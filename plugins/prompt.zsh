@@ -21,12 +21,23 @@ function _zen_prompt_render() {
     local hostname="${zfg[cyan]}%m"
     local priv="${priv_color}%#"
 
-    print -Rn "${sep_left}${username}${sep_at}${hostname} "
+    print -Rn "${sep_left}${username}${sep_at}"
+    _zen_prompt_render_hostname
+    print -Rn " "
     _zen_prompt_render_dir
     print -Rn "${sep_right}"
     _zen_prompt_render_parts
     print -Rn "${priv} "
     print -Rn "${zfg[no]}${zbg[no]}"
+}
+
+function _zen_prompt_render_hostname() {
+    if [[ -z $SSH_CLIENT ]]; then
+        print -Rn "${zfg[cyan]}"
+    else
+        print -Rn "${zfg[white]}"
+    fi
+    print -Rn "%m"
 }
 
 function _zen_prompt_render_dir() {
