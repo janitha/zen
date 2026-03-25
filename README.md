@@ -1,36 +1,58 @@
 # Zen Zsh Framework
 
-A minimal zsh framework.
+A small, modular Zsh plugin framework with a composable prompt system and simple project shell states.
 
-# Usage
+Inspired by oh-my-zsh, but built as an ultra-lightweight alternative for my own personal use.
 
-```
+## Quick start
+
+To your .zshrc file
+
+```sh
 source ~/.zen/zen.zsh
 zen init
 zen load defaults
 ```
 
-# Fraemwork
+- `zen init`: initialize the plugin directory and shell completion.
+- `zen load <name>`: load a plugin from `~/.zen/plugins/<name>.zsh` or `~/.zen/plugins/<name>/<name>.plugin.zsh`.
 
-## Plugins
+## Structure
 
-Should be placed in to the `zen/plugins` directory, as either a single file or directory that follow the standard omz like plugin standard.
+- `zen.zsh`: bootstraps the framework and sets up paths.
+- `functions/zen`: defines `zen` subcommands (`init`, `load`).
+- `functions/zen-utils`: OS helpers and ANSI color maps used by prompt plugins.
+- `plugins/`: built-in plugin files and plugin directories.
 
-- `zen/plugins/${pluginname}.zsh`
-- `zen/plugins/${pluginname}/${pluginnmame}.plugin.zsh`
+## Plugin conventions
 
-## Prompt
+Zen supports two plugin formats:
 
-Included is the zen-prompt plugin, which allow dynamically creating the prompt.
+- single-file: `plugins/<name>.zsh`
+- directory: `plugins/<name>/<name>.plugin.zsh`
 
-- `zen-prompt add-part <fn>` a fn that will be appeneded towards end of the prompt.
-- `zen-prompt add-dirsub <fn>` a fn that can mangle the displayed directory.
+## Built-in plugins
+
+- `prompt`: modular prompt rendering with hookable parts and path transformations.
+- `zenv`: in-directory environment state using `.zenv` files and nested shells.
+- `git`: repository branch + dirty indicator in prompt.
+- `virtualenv`: displays active `VIRTUAL_ENV` marker.
+- `kubernetes`: displays `KUBECONFIG` marker.
+- `aws`: displays `AWS_*` credential marker.
+
+## Prompt extension API
+
+`zen-prompt` provides:
+
+- `zen-prompt add-part <fn>`: add a function that renders in the right prompt segment.
+- `zen-prompt add-dirsub <fn>`: add a function that transforms how `$PWD` is displayed.
+
+### Example
 
 ```sh
 function _dummy_part_info() {
     print -Rn "(dummy)"
 }
-
 zen-prompt add-part _dummy_part_info
 
 function _dummy_dirsub() {
@@ -39,3 +61,9 @@ function _dummy_dirsub() {
 }
 zen-prompt add-dirsub _dummy_dirsub
 ```
+
+## Notes
+
+- `zen load defaults` loads common components in this order: `prompt`, `zenv`, `git`, `virtualenv`, `kubernetes`, `aws`.
+- `setopt prompt_subst` is required for the dynamic prompt expression used by `prompt` plugin.
+
